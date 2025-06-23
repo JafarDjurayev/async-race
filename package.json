@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "backend": "cd ../backAsync/async-race-api && npm start",
     "start": "concurrently \"npm run dev\" \"npm run backend\"",
     "build": "tsc -b && vite build",

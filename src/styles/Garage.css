@@ -1,0 +1,48 @@
+.container {
+    margin: 30px 20px 0 20px;
+
+    .controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .race-buttons {
+            display: flex;
+            gap: 2rem;
+        }
+
+        form {
+            display: block;
+
+            .input-name {
+                height: 30px;
+                box-sizing: border-box;
+                border: none;
+                margin-right: 15px;
+            }
+
+            .button-create {
+                background-color: #3FA7C2;
+                color: #fff;
+            }
+
+            .button-update {
+                background-color: #56B084;
+                color: #fff;
+            }
+        }
+
+        button {
+            cursor: pointer;
+            height: 50px;
+            width: 100px;
+            border-radius: 15px;
+            color: black;
+            margin-left: 20px;
+            border: none;
+            font-weight: 700;
+            background-color: #FDC039;
+        }
+    }
+}

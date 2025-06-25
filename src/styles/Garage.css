@@ -1,48 +1,62 @@
 .container {
-    margin: 30px 20px 0 20px;
+  margin: 30px 20px 0 20px;
 
-    .controls {
+  .race-lanes {
+    margin-top: 20px;
+
+    .race-title {
+      font-weight: 700;
+      font-size: 2em;
+    }
+
+    .race-lane {
+      width: 100%;
+      border-top: 5px solid #96a4b5;
+      border-bottom: 5px solid #96a4b5;
+      padding: 15px 0 15px 0;
+      display: flex;
+      align-items: center;
+
+      .car-control-panel {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
-        .race-buttons {
-            display: flex;
-            gap: 2rem;
-        }
-
-        form {
-            display: block;
-
-            .input-name {
-                height: 30px;
-                box-sizing: border-box;
-                border: none;
-                margin-right: 15px;
-            }
-
-            .button-create {
-                background-color: #3FA7C2;
-                color: #fff;
-            }
-
-            .button-update {
-                background-color: #56B084;
-                color: #fff;
-            }
-        }
+        column-gap: 2rem;
 
         button {
-            cursor: pointer;
-            height: 50px;
-            width: 100px;
-            border-radius: 15px;
-            color: black;
-            margin-left: 20px;
-            border: none;
-            font-weight: 700;
-            background-color: #FDC039;
+          height: 50px;
+          width: 90px;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
         }
+
+        .car-control-button {
+          height: 50px;
+          width: 40px;
+          background-color: #fdc039;
+          border-radius: 20px;
+          color: black;
+          font-weight: 700;
+        }
+
+        .car-select-button {
+          background-color: #56b084;
+          color: #fff;
+        }
+
+        .car-remove-button {
+          background-color: red;
+          color: #fff;
+        }
+      }
+
+      .track {
+        width: 100%;
+        padding-left: 40px;
+
+        div {
+          width: 100%;
+        }
+      }
     }
+  }
 }

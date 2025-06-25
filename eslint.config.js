@@ -12,6 +12,9 @@ export default tseslint.config(
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parserOptions: {
+        project: './tsconfig.app.json',
+      },
     },
     plugins: {
       'react-hooks': reactHooks,
@@ -23,6 +26,18 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      'semi': ['error', 'always'],
+      'quotes': ['error', 'single'],
+      'indent': ['error', 2],
+      'no-unused-vars': ['warn'],
+      'no-magic-numbers': ['warn', { ignore: [0, 1], ignoreArrayIndexes: true }],
+      'max-lines-per-function': ['warn', { max: 40, skipComments: true, skipBlankLines: true }],
+      'object-curly-spacing': ['error', 'always'],
+      'array-bracket-spacing': ['error', 'never'],
+      'arrow-parens': ['error', 'always'],
+      'comma-dangle': ['error', 'always-multiline'],
+      '@typescript-eslint/explicit-function-return-type': 'warn',
+      '@typescript-eslint/no-floating-promises': 'warn',
     },
   },
 )

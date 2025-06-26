@@ -1,0 +1,27 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0 30px 0;
+  gap: 40px;
+
+  button {
+    cursor: pointer;
+    border: none;
+    height: 70px;
+    width: 90px;
+    border-radius: 35px;
+    background: #5465cd;
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  .button-control {
+    height: 90px;
+    width: 110px;
+    background: #ffa500;
+    border-radius: 30px;
+    margin: 0 50px 0 50px;
+  }
+}

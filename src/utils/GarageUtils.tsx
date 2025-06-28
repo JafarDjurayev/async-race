@@ -14,7 +14,7 @@ function getRandomName(): string {
   return `${brand} ${model}`;
 }
 
-export async function generate100RandomCars(): Promise<Car[]> {
+export async function generate100RandomCars(existingIds: Set<number>): Promise<Car[]> {
   // 1. Fetch existing cars
   const existingCars = await fetchCars();
 
@@ -36,11 +36,8 @@ export async function initGarage(): Promise<void> {
   try {
     const cars = await fetchCars();
     console.log('Fetched cars:', cars);
-
-    const generated = await generate100RandomCars();
+    const generated = await generate100RandomCars(new Set());
     console.log('Generated 100 cars:', generated);
-
-    // optionally return cars or call setState/store functions here
   } catch (err) {
     console.error('Garage init failed:', err);
   }

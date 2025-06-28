@@ -1,11 +1,25 @@
-import React, { type JSX } from 'react';
+import React, { useEffect, type JSX } from 'react';
 import Controls from '../../components/Controls';
 import Navigation from '../../components/Navigation';
 import RaceLane from '../../components/RaceLane';
 import Pagination from '../../components/Pagination';
 import '../../styles/Garage.css';
+import { useCarStore } from '../../app/zustand/useGarageStore';
+import { usePaginationStore } from '../../app/zustand/useGarageStore'
+import { initGarage } from '../../utils/GarageUtils';
 
 export default function GaragePage(): JSX.Element {
+  const cars = useCarStore((state) => state.cars);
+  const currentPage = usePaginationStore((state) => state.currentPage);
+  const totalPages = usePaginationStore((state) => state.totalPages);
+  const setTotalPages = usePaginationStore((state) => state.setTotalPages);
+  const setCurrentPage = usePaginationStore((state) => state.setCurrentPage);
+  useEffect(() => {
+    setTotalPages(Math.ceil(cars.length / 7));
+  }, [cars]);
+  useEffect(() => {
+  void initGarage();
+}, []);
   return (
     <>
       <Navigation />
@@ -15,7 +29,9 @@ export default function GaragePage(): JSX.Element {
           <h1 className="race-title">START</h1>
           <RaceLane />
         </div>
-        <Pagination />
+        {cars.length > 0 && (
+          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+        )}
       </div>
     </>
   );

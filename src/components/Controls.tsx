@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {type JSX} from 'react';
 import '../styles/Controls.css';
+import { useGenerateCars } from './HandleGenerateCars';
 
-export default function Controls() {
+export default function Controls(): JSX.Element {
+   const { handleGenerateClick } = useGenerateCars();
   return (
     <>
       <div className="controls">
@@ -11,7 +13,7 @@ export default function Controls() {
         </div>
         <form>
           <input type="text" placeholder="Car name" className="input-name" />
-          <input type="color" />'
+          <input type="color" />
           <button type="button" className="button-create">
             CREATE
           </button>
@@ -23,7 +25,7 @@ export default function Controls() {
             UPDATE
           </button>
         </form>
-        <button type="button">GENERATE</button>
+        <button type="button" onClick={handleGenerateClick}>GENERATE</button>
       </div>
     </>
   );

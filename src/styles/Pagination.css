@@ -4,7 +4,9 @@
   align-items: center;
   margin: 40px 0 30px 0;
   gap: 40px;
-
+.active{
+  background: #56b084;
+}
   button {
     cursor: pointer;
     border: none;
@@ -19,9 +21,9 @@
 
   .button-control {
     height: 90px;
-    width: 110px;
+    width: 150px;
     background: #ffa500;
     border-radius: 30px;
-    margin: 0 50px 0 50px;
+    margin: 0 30px 0 30px;
   }
 }

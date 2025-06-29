@@ -1,0 +1,16 @@
+.container {
+    margin: 20px 20px 0 20px;
+
+    .winners-table {
+        width: 100%;
+        font-size: x-large;
+    }
+
+    .winners-table,
+    td,
+    th {
+        border-width: 2px;
+        border-style: solid;
+        border-color: #011627;
+    }
+}

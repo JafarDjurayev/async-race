@@ -1,0 +1,33 @@
+
+            .car-control-panel {
+                display: flex;
+                column-gap: 2rem;
+
+                button {
+                    height: 50px;
+                    width: 90px;
+                    border: none;
+                    border-radius: 10px;
+                    cursor: pointer;
+                }
+
+                .car-control-button {
+                    height: 50px;
+                    width: 40px;
+                    background-color: #FDC039;
+                    border-radius: 20px;
+                    color: black;
+                    font-weight: 700;
+                }
+
+                .car-select-button {
+                    background-color: #56B084;
+                    color: #fff;
+
+                }
+
+                .car-remove-button {
+                    background-color: red;
+                    color: #fff;
+                }
+            }

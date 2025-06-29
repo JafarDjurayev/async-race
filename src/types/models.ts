@@ -1,4 +1,3 @@
-import { fetchCars } from "../api/garage";
 
 export interface Car {
   id: number;
@@ -24,6 +23,26 @@ export interface PaginationStore {
   setTotalPages: (total: number) => void;
 }
 
+export interface Winner {
+  id: number;
+  name: string;
+  wins: number;
+  time: number;
+}
+
+
+export interface WinnerStore {
+  winners: Winner[];
+  setWinners: (winners: Winner[]) => void;
+}
+
+
+export interface WinnersPaginationStore {
+  currentPage: number;
+  totalPages: number;
+  setCurrentPage: (page: number) => void;
+  setTotalPages: (total: number) => void;
+}
 
 export interface CarStore {
   cars: Car[];

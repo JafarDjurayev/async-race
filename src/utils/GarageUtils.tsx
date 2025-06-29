@@ -1,7 +1,5 @@
 import { fetchCars } from '../api/garage';
-import { brands } from '../types/models';
-import { models } from '../types/models';
-import { type Car } from '../types/models';
+import { brands, models, type Car } from '../types/models';
 
 
 function getRandomColor(): string {

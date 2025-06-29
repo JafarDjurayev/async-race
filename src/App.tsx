@@ -1,15 +1,10 @@
-// import './App.css'
-import GaragePage from './pages/garage/garagePage';
-import { BrowserRouter } from 'react-router-dom';
+import type { JSX } from 'react/jsx-runtime'
+import AppRouter from './routes/AppRouter'
 
-function App() {
+function App(): JSX.Element {
   return (
-    <>
-      <BrowserRouter>
-        <GaragePage />
-      </BrowserRouter>
-    </>
-  );
+      <AppRouter />
+  )
 }
 
-export default App;
+export default App

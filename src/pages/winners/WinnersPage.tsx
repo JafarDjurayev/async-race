@@ -10,7 +10,7 @@ export default function WinnersPage(): JSX.Element {
     const setCurrentPage = useWinnersPaginationStore((state) => state.setCurrentPage);
     const setTotalPages = useWinnersPaginationStore((state) => state.setTotalPages);
     useEffect(() => {
-        setTotalPages(Math.ceil(winners.length / 7));
+        setTotalPages(Math.ceil(winners.length / 10));
     }, [winners]);
     return (<>
         <div className="container">

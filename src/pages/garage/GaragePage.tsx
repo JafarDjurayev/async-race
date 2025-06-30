@@ -3,9 +3,8 @@ import Controls from '../../components/Controls';
 import RaceLane from '../../components/RaceLane';
 import Pagination from '../../components/Pagination';
 import '../../styles/Garage.css';
-import { useCarStore } from '../../app/zustand/useGarageStore';
-import { usePaginationStore } from '../../app/zustand/useGarageStore'
-import { initGarage } from '../../utils/GarageUtils';
+import { useCarStore, usePaginationStore } from '../../app/zustand/useGarageStore';
+// import { initGarage } from '../../utils/GarageUtils';
 
 export default function GaragePage(): JSX.Element {
   const cars = useCarStore((state) => state.cars);
@@ -13,12 +12,15 @@ export default function GaragePage(): JSX.Element {
   const totalPages = usePaginationStore((state) => state.totalPages);
   const setTotalPages = usePaginationStore((state) => state.setTotalPages);
   const setCurrentPage = usePaginationStore((state) => state.setCurrentPage);
+  
   useEffect(() => {
     setTotalPages(Math.ceil(cars.length / 7));
   }, [cars]);
-  useEffect(() => {
-  void initGarage();
-}, []);
+
+//   useEffect(() => {
+//   void initGarage();
+// }, []);
+
   return (
     <>
       <div className="container">

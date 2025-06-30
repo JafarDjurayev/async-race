@@ -1,23 +1,25 @@
-import React, { type JSX } from 'react';
-import { usePaginationStore } from '../app/zustand/useGarageStore';
-import { useCarStore } from '../app/zustand/useGarageStore';
+import { usePaginationStore, useCarStore } from '../app/zustand/useGarageStore';
+import { fetchCars } from '../api/garage';
 import { generate100RandomCars } from '../utils/GarageUtils';
-import {type GenerateCarsHook } from '../types/models';
-
+import { type GenerateCarsHook } from '../types/models';
 
 export function useGenerateCars(): GenerateCarsHook {
-  const cars = useCarStore((state) => state.cars);
-  const addCars = useCarStore((state) => state.addCars);
+  const setCars = useCarStore.getState().setCars;
+  const setTotalPages = usePaginationStore.getState().setTotalPages;
 
   async function handleGenerateClick() {
-    const existingIds = new Set(cars.map((car) => car.id));
-    const newCars = await generate100RandomCars(existingIds);
-    addCars(newCars);
+    try {
+      const existingCars = await fetchCars();
 
-    const setTotalPages = usePaginationStore.getState().setTotalPages;
-    const allCarsCount = cars.length + newCars.length;
-    setTotalPages(Math.ceil(allCarsCount / 7));
+      const maxId = existingCars.reduce((max, car) => (car.id > max ? car.id : max), 0);
+
+      const newCars = generate100RandomCars(maxId);
+      const combinedCars = [...existingCars, ...newCars];
+      setCars(combinedCars);
+      setTotalPages(Math.ceil(combinedCars.length / 7));
+    } catch (error) {
+      console.error('Error generating cars:', error);
+    }
   }
-
   return { handleGenerateClick };
 }

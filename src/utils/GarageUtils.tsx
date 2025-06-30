@@ -1,5 +1,90 @@
-import { fetchCars } from '../api/garage';
+import {  DeleteCar, UpdateCar } from '../api/garage';
 import { brands, models, type Car } from '../types/models';
+import { useCarStore, useCarUpdateStore } from '../app/zustand/useGarageStore';
+
+export function useCarUpdateHandler() {
+  const clearSelectedCar = useCarUpdateStore((state) => state.clearSelectedCar);
+  const updateCarInStore = useCarStore((state) => state.updateCar);
+  const { setCarNameInput, setCarColorInput } = useCarStore();
+
+  const handleUpdateClick = async () => {
+    console.groupCollapsed('[CarUpdateHandler] Update Process');
+    
+    try {
+      const { selectedCar } = useCarUpdateStore.getState();
+      const { carNameInput, carColorInput } = useCarStore.getState();
+
+     
+      if (!selectedCar) {
+        console.warn('No car selected');
+        return;
+      }
+
+      console.log(' Selected Car:', {
+        id: selectedCar.id,
+        name: selectedCar.name,
+        color: selectedCar.color
+      });
+
+      console.log('Current Inputs:', {
+        name: carNameInput,
+        color: carColorInput
+      });
+
+  
+      const updateName = carNameInput.trim() || selectedCar.name;
+      const updateColor = carColorInput || selectedCar.color;
+
+      if (!updateName) {
+        console.warn(' Empty car name');
+        return;
+      }
+
+      const updateData = {
+        ...selectedCar, 
+        name: updateName,
+        color: updateColor
+      };
+
+      console.log(' Update Data:', updateData);
+
+      
+      const currentStoreCar = useCarStore.getState().cars.find(c => c.id === selectedCar.id);
+      console.log('Current Store Version:', currentStoreCar);
+
+     
+      console.log('Applying optimistic update');
+      updateCarInStore(updateData);
+
+    
+      console.log('Calling API...');
+      const response = await UpdateCar(updateData);
+      console.log(' API Response:', response);
+
+      console.log('Applying server response');
+      updateCarInStore(response);
+
+      console.log(' Resetting form');
+      clearSelectedCar();
+      setCarNameInput('');
+      setCarColorInput('#000000');
+
+      console.log('Update successful!');
+    } catch (error) {
+      console.error('Update failed:', error);
+      const { selectedCar } = useCarUpdateStore.getState();
+      if (selectedCar) {
+        console.log('Reverting to original');
+        updateCarInStore(selectedCar);
+      }
+    } finally {
+      console.groupEnd();
+    }
+  };
+
+  return { handleUpdateClick };
+}
+
 
 
 function getRandomColor(): string {
@@ -12,31 +97,24 @@ function getRandomName(): string {
   return `${brand} ${model}`;
 }
 
-export async function generate100RandomCars(existingIds: Set<number>): Promise<Car[]> {
-  // 1. Fetch existing cars
-  const existingCars = await fetchCars();
-
-  // 2. Find max ID in existing cars
-  const maxId = existingCars.reduce((max, car) => (car.id > max ? car.id : max), 0);
-
-  // 3. Generate 100 new cars with IDs starting from maxId + 1
-  const newCars: Car[] = Array.from({ length: 100 }, (_, i) => ({
-    id: maxId + 1 + i,
+export function generate100RandomCars(startingId: number): Car[] {
+  return Array.from({ length: 100 }, (_, i) => ({
+    id: startingId + 1 + i,
     name: getRandomName(),
     color: getRandomColor(),
   }));
-
-  return newCars;
 }
 
-
-export async function initGarage(): Promise<void> {
+export async function handleRemoveCar(carId: number): Promise<void> {
   try {
-    const cars = await fetchCars();
-    console.log('Fetched cars:', cars);
-    const generated = await generate100RandomCars(new Set());
-    console.log('Generated 100 cars:', generated);
-  } catch (err) {
-    console.error('Garage init failed:', err);
+    await DeleteCar(carId);
+    useCarStore.getState().removeCar(carId);
+  } catch (error) {
+    console.error(`Failed to delete car with ID ${carId}:`, error);
   }
 }
+
+
+
+
+

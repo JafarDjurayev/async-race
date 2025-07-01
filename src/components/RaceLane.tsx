@@ -5,8 +5,7 @@ import { useRaceLaneLogic } from '../utils/useCarAnimation';
 import RaceTrack from './RaceTrack';
 
 export default function RaceLane(): JSX.Element {
-  const { currentCars, carStates, drivingCars, maxDistances, trackRefs } =
-    useRaceLaneLogic();
+  const { currentCars, carStates, drivingCars, maxDistances, trackRefs } = useRaceLaneLogic();
 
   return (
     <div className="race-lanes-container">

@@ -6,7 +6,7 @@ import Layout from '../layout/Layout';
 
 export default function AppRouter(): JSX.Element {
   return (
-    <HashRouter>
+    <HashRouter basename="/async-race">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<GaragePage />} />

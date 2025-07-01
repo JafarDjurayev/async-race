@@ -1,54 +1,89 @@
-# React + TypeScript + Vite
+# Async Race
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**UI Deployment:** [🔗 Live App](https://frabjous-crepe-cedd14.netlify.app/)
+**Score:** 345 / 400 ✅
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✅ Requirements to Commits and Repository
 
-## Expanding the ESLint configuration
+* ✅ **Commit guidelines compliance**
+* ✅ **Checklist included in README.md**
+* ✅ **Score calculation shown above**
+* ✅ **UI Deployment link included**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📦 Basic Structure (80 points)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* ✅ **Two Views (10 points)**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+  * Garage ✅
+  * Winners ✅
+* ✅ **Garage View Content (30 points)**
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+  * View name ✅
+  * Car creation/editing panel ✅
+  * Race control panel ✅
+  * Garage section ✅
+* ✅ **Winners View Content (10 points)**
+
+  * View name ✅
+  * Winners table ✅
+  * Pagination ✅
+* ❌ **Persistent State (30 points)**
+
+
+
+## 🛠 Garage View (90 points)
+
+* ✅ **CRUD Operations (20 points)**
+* ✅ **Color Selection (10 points)**
+* ✅ **Random Car Creation (20 points)**
+* ✅ **Car Management Buttons (10 points)**
+* ✅ **Pagination (10 points)**
+* ❌ **Empty Garage Handling (10 points)**
+
+  * Show "No Cars" message ❌
+  * Move to previous page if last car removed ❌
+
+---
+
+## 🏆 Winners View (50 points)
+
+* ✅ **Display Winners (15 points)**
+* ✅ **Pagination (10 points)**
+* ✅ **Winners Table (15 points)**
+* ✅ **Sorting Functionality (10 points)**
+
+---
+
+## 🚗 Race (170 points)
+
+* ✅ **Start Engine Animation (20 points)**
+* ✅ **Stop Engine Animation (20 points)**
+* ✅ **Responsive Animation (30 points)**
+* ✅ **Start Race Button (10 points)**
+* ✅ **Reset Race Button (15 points)**
+* ❌ **Winner Announcement (5 points)**
+* ✅ **Button States (20 points)**
+* ✅ **Actions During Race (50 points)**
+
+---
+
+## 🎨 Prettier and ESLint Configuration (10 points)
+
+* ✅ **Prettier Setup (5 points)**
+* ✅ **ESLint Configuration (5 points)**
+
+---
+
+
+
+### ✅ Legend
+
+* ✅ Implemented
+* ❌ Not implemented
+* 🔄 In Progress 
+
+

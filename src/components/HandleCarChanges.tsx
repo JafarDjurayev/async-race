@@ -3,18 +3,18 @@
 
 // export const useSyncCarInputs = () => {
 //   const { selectedCar } = useCarUpdateStore();
-//   const { 
-//     carNameInput, 
-//     carColorInput, 
-//     setCarNameInput, 
-//     setCarColorInput 
+//   const {
+//     carNameInput,
+//     carColorInput,
+//     setCarNameInput,
+//     setCarColorInput
 //   } = useCarStore();
 
 //   // Initialize inputs when car is selected or changes
 //   useEffect(() => {
 //     if (selectedCar) {
 //       console.log('Initializing inputs for car:', selectedCar.id);
-      
+
 //       // Only update if inputs are at defaults or different from selected car
 //       if (carNameInput === '' || carColorInput === '#000000') {
 //         setCarNameInput(selectedCar.name);
@@ -42,38 +42,33 @@
 //   };
 
 //   return {
-//     nameValue: selectedCar && carNameInput === '' 
-//       ? selectedCar.name 
+//     nameValue: selectedCar && carNameInput === ''
+//       ? selectedCar.name
 //       : carNameInput,
-//     colorValue: selectedCar && carColorInput === '#000000' 
-//       ? selectedCar.color 
+//     colorValue: selectedCar && carColorInput === '#000000'
+//       ? selectedCar.color
 //       : carColorInput,
 //     handleNameChange,
 //     handleColorChange
 //   };
 // };
 
-
 import { useEffect } from 'react';
 import { useCarStore, useCarUpdateStore } from '../app/zustand/useGarageStore';
 
 export const useSyncCarInputs = () => {
   const { selectedCar } = useCarUpdateStore();
-  const { 
-    carNameInput, 
-    carColorInput, 
-    setCarNameInput, 
-    setCarColorInput 
-  } = useCarStore();
+  const { carNameInput, carColorInput, setCarNameInput, setCarColorInput } =
+    useCarStore();
 
   // Initialize inputs when car is selected or changes
   useEffect(() => {
     if (selectedCar) {
       console.log('Initializing inputs for car:', selectedCar.id, {
         name: selectedCar.name,
-        color: selectedCar.color
+        color: selectedCar.color,
       });
-      
+
       // Always update inputs when selected car changes
       setCarNameInput(selectedCar.name);
       setCarColorInput(selectedCar.color);
@@ -102,6 +97,6 @@ export const useSyncCarInputs = () => {
     nameValue: carNameInput,
     colorValue: carColorInput,
     handleNameChange,
-    handleColorChange
+    handleColorChange,
   };
 };

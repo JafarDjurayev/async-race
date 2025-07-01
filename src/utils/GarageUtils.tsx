@@ -1,20 +1,19 @@
-import {  DeleteCar, UpdateCar } from '../api/garage';
+import { DeleteCar, UpdateCar } from '../api/garage';
 import { brands, models, type Car } from '../types/models';
 import { useCarStore, useCarUpdateStore } from '../app/zustand/useGarageStore';
 
 export function useCarUpdateHandler() {
-  const clearSelectedCar = useCarUpdateStore((state) => state.clearSelectedCar);
-  const updateCarInStore = useCarStore((state) => state.updateCar);
+  const clearSelectedCar = useCarUpdateStore(state => state.clearSelectedCar);
+  const updateCarInStore = useCarStore(state => state.updateCar);
   const { setCarNameInput, setCarColorInput } = useCarStore();
 
   const handleUpdateClick = async () => {
     console.groupCollapsed('[CarUpdateHandler] Update Process');
-    
+
     try {
       const { selectedCar } = useCarUpdateStore.getState();
       const { carNameInput, carColorInput } = useCarStore.getState();
 
-     
       if (!selectedCar) {
         console.warn('No car selected');
         return;
@@ -23,15 +22,14 @@ export function useCarUpdateHandler() {
       console.log(' Selected Car:', {
         id: selectedCar.id,
         name: selectedCar.name,
-        color: selectedCar.color
+        color: selectedCar.color,
       });
 
       console.log('Current Inputs:', {
         name: carNameInput,
-        color: carColorInput
+        color: carColorInput,
       });
 
-  
       const updateName = carNameInput.trim() || selectedCar.name;
       const updateColor = carColorInput || selectedCar.color;
 
@@ -41,22 +39,21 @@ export function useCarUpdateHandler() {
       }
 
       const updateData = {
-        ...selectedCar, 
+        ...selectedCar,
         name: updateName,
-        color: updateColor
+        color: updateColor,
       };
 
       console.log(' Update Data:', updateData);
 
-      
-      const currentStoreCar = useCarStore.getState().cars.find(c => c.id === selectedCar.id);
+      const currentStoreCar = useCarStore
+        .getState()
+        .cars.find(c => c.id === selectedCar.id);
       console.log('Current Store Version:', currentStoreCar);
 
-     
       console.log('Applying optimistic update');
       updateCarInStore(updateData);
 
-    
       console.log('Calling API...');
       const response = await UpdateCar(updateData);
       console.log(' API Response:', response);
@@ -85,10 +82,10 @@ export function useCarUpdateHandler() {
   return { handleUpdateClick };
 }
 
-
-
 function getRandomColor(): string {
-  return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+  return `#${Math.floor(Math.random() * 16777215)
+    .toString(16)
+    .padStart(6, '0')}`;
 }
 
 function getRandomName(): string {
@@ -113,8 +110,3 @@ export async function handleRemoveCar(carId: number): Promise<void> {
     console.error(`Failed to delete car with ID ${carId}:`, error);
   }
 }
-
-
-
-
-

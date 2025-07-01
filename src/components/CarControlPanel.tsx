@@ -1,4 +1,3 @@
-import React from 'react';
 import '../styles/CarControlPanel.css';
 import { useCarControls } from '../utils/useCarControls';
 import type { CarControlPanelProps } from '../types/models';

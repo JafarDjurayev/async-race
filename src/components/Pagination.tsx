@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react';
+import { type JSX } from 'react';
 import '../styles/Pagination.css';
 import { type PaginationProps } from '../types/models';
 import { getVisiblePages } from '../utils/PaginationUtils';

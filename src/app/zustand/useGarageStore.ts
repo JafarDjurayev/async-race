@@ -61,7 +61,7 @@ export const CreateCarStore = create<CarCreateStore>((set, get) => ({
   },
 }));
 
-export const useCarStore = create<CarStore>((set, get) => ({
+export const useCarStore = create<CarStore>((set) => ({
   cars: [],
   carNameInput: '',
   carColorInput: '#000000',

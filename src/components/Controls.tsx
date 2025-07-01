@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react';
+import { type JSX } from 'react';
 import '../styles/Controls.css';
 import { useGenerateCars } from './HandleGenerateCars';
 import { CreateCarStore } from '../app/zustand/useGarageStore';

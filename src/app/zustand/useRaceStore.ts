@@ -4,9 +4,8 @@
 //   isDriving: boolean;
 //   velocity: number;
 //   distance: number;
-//   duration: number; 
+//   duration: number;
 // };
-
 
 // type RaceState = {
 //   carStates: Record<number, CarAnimationState>;
@@ -19,23 +18,23 @@
 
 // export const useRaceStore = create<RaceState>((set) => ({
 //   carStates: {},
-  
+
 //   initializeCar: (id) => {
 //     set((state) => ({
 //       carStates: {
 //         ...state.carStates,
-//         [id]: { 
-//           isDriving: false, 
-//           velocity: 0, 
-//           distance: 0, 
-//           duration: 3 
+//         [id]: {
+//           isDriving: false,
+//           velocity: 0,
+//           distance: 0,
+//           duration: 3
 //         }
 //       }
 //     }));
 //   },
 
 //   startEngine: (id, velocity, distance) => {
-//     const duration = distance / velocity / 1000; 
+//     const duration = distance / velocity / 1000;
 //     set((state) => ({
 //       carStates: {
 //         ...state.carStates,
@@ -55,7 +54,7 @@
 //     set((state) => {
 //       const car = state.carStates[id];
 //       if (!car) return state;
-      
+
 //       return {
 //         carStates: {
 //           ...state.carStates,
@@ -89,7 +88,6 @@
 //   }
 // }));
 
-
 import { create } from 'zustand';
 import type { Winner } from '../../types/models';
 
@@ -97,7 +95,7 @@ type CarAnimationState = {
   isDriving: boolean;
   velocity: number;
   distance: number;
-  duration: number; 
+  duration: number;
 };
 
 export type RaceStatus = 'ready' | 'racing' | 'finished' | 'reset';
@@ -115,28 +113,28 @@ export interface RaceState {
   setWinner: (winner: Winner | null) => void;
 }
 
-export const useRaceStore = create<RaceState>((set) => ({
+export const useRaceStore = create<RaceState>(set => ({
   carStates: {},
   raceStatus: 'ready',
   currentWinner: null,
-  
-  initializeCar: (id) => {
-    set((state) => ({
+
+  initializeCar: id => {
+    set(state => ({
       carStates: {
         ...state.carStates,
-        [id]: { 
-          isDriving: false, 
-          velocity: 0, 
-          distance: 0, 
-          duration: 3 
-        }
-      }
+        [id]: {
+          isDriving: false,
+          velocity: 0,
+          distance: 0,
+          duration: 3,
+        },
+      },
     }));
   },
 
   startEngine: (id, velocity, distance) => {
-    const duration = distance / velocity / 1000; 
-    set((state) => ({
+    const duration = distance / velocity / 1000;
+    set(state => ({
       carStates: {
         ...state.carStates,
         [id]: {
@@ -144,51 +142,51 @@ export const useRaceStore = create<RaceState>((set) => ({
           velocity,
           distance,
           duration,
-          isDriving: false
-        }
-      }
+          isDriving: false,
+        },
+      },
     }));
     return duration;
   },
 
-  driveEngine: (id) => {
-    set((state) => {
+  driveEngine: id => {
+    set(state => {
       const car = state.carStates[id];
       if (!car) return state;
-      
+
       return {
         carStates: {
           ...state.carStates,
           [id]: {
             ...car,
-            isDriving: true
-          }
-        }
+            isDriving: true,
+          },
+        },
       };
     });
   },
 
-  stopEngine: (id) => {
-    set((state) => ({
+  stopEngine: id => {
+    set(state => ({
       carStates: {
         ...state.carStates,
         [id]: {
           ...state.carStates[id],
-          isDriving: false
-        }
-      }
+          isDriving: false,
+        },
+      },
     }));
   },
 
-  resetCar: (id) => {
-    set((state) => {
+  resetCar: id => {
+    set(state => {
       const newStates = { ...state.carStates };
       delete newStates[id];
       return { carStates: newStates };
     });
   },
 
-  setRaceStatus: (status) => set({ raceStatus: status }),
-  
-  setWinner: (winner) => set({ currentWinner: winner })
+  setRaceStatus: status => set({ raceStatus: status }),
+
+  setWinner: winner => set({ currentWinner: winner }),
 }));

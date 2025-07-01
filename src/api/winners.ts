@@ -1,7 +1,6 @@
-import type { Winner } from "../types/models";
+import type { Winner } from '../types/models';
 
 const API_URL: string = 'http://127.0.0.1:3000';
-
 
 // export async function getWinners(
 //   page: number,
@@ -25,7 +24,7 @@ const API_URL: string = 'http://127.0.0.1:3000';
 //     if (!response.ok) {
 //       const errorData = await response.json().catch(() => null);
 //       throw new Error(
-//         errorData?.message || 
+//         errorData?.message ||
 //         `Failed to fetch winners. Status: ${response.status}`
 //       );
 //     }
@@ -48,12 +47,11 @@ const API_URL: string = 'http://127.0.0.1:3000';
 //   }
 // }
 
-
 export async function getWinners(
   page: number,
   limit = 10,
   sort: 'id' | 'wins' | 'time' = 'id',
-  order: 'ASC' | 'DESC' = 'ASC'
+  order: 'ASC' | 'DESC' = 'ASC',
 ): Promise<{ winners: Winner[]; totalCount: number }> {
   try {
     const url = new URL(`${API_URL}/winners`);
@@ -64,21 +62,23 @@ export async function getWinners(
 
     const response = await fetch(url.toString(), {
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
       throw new Error(
-        errorData?.message || 
-        `Failed to fetch winners. Status: ${response.status}`
+        errorData?.message ||
+          `Failed to fetch winners. Status: ${response.status}`,
       );
     }
 
     const winners: Winner[] = await response.json();
     const totalCountHeader = response.headers.get('X-Total-Count');
-    const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : winners.length;
+    const totalCount = totalCountHeader
+      ? parseInt(totalCountHeader, 10)
+      : winners.length;
 
     if (!Array.isArray(winners)) {
       throw new Error('Invalid winners data format received from server');
@@ -88,19 +88,19 @@ export async function getWinners(
   } catch (error) {
     console.error('Error fetching winners:', error);
     throw new Error(
-      error instanceof Error ? error.message : 'Failed to fetch winners'
+      error instanceof Error ? error.message : 'Failed to fetch winners',
     );
   }
 }
 
 export async function getAllWinners(
   sort: 'id' | 'wins' | 'time' = 'id',
-  order: 'ASC' | 'DESC' = 'ASC'
+  order: 'ASC' | 'DESC' = 'ASC',
 ): Promise<{ winners: Winner[]; totalCount: number }> {
   try {
     // First fetch just to get the total count
     const { totalCount } = await getWinners(1, 1, sort, order);
-    
+
     if (totalCount === 0) {
       return { winners: [], totalCount: 0 };
     }
@@ -111,25 +111,24 @@ export async function getAllWinners(
     const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
     // Fetch all pages in parallel
-    const pagePromises = pageNumbers.map(page => 
-      getWinners(page, limit, sort, order)
+    const pagePromises = pageNumbers.map(page =>
+      getWinners(page, limit, sort, order),
     );
 
     const pages = await Promise.all(pagePromises);
     const allWinners = pages.flatMap(page => page.winners);
 
-    return { 
-      winners: allWinners, 
-      totalCount 
+    return {
+      winners: allWinners,
+      totalCount,
     };
   } catch (error) {
     console.error('Error fetching all winners:', error);
     throw new Error(
-      error instanceof Error ? error.message : 'Failed to fetch all winners'
+      error instanceof Error ? error.message : 'Failed to fetch all winners',
     );
   }
 }
-
 
 export async function getWinnerById(id: number): Promise<Winner | null> {
   const res = await fetch(`${API_URL}/winners/${id}`);
@@ -138,7 +137,10 @@ export async function getWinnerById(id: number): Promise<Winner | null> {
   return res.json();
 }
 
-export async function updateWinner(id: number, data: { wins: number; time: number }): Promise<Winner> {
+export async function updateWinner(
+  id: number,
+  data: { wins: number; time: number },
+): Promise<Winner> {
   const res = await fetch(`${API_URL}/winners/${id}`, {
     method: 'PUT', // Or PATCH if your API supports
     headers: { 'Content-Type': 'application/json' },
@@ -148,7 +150,11 @@ export async function updateWinner(id: number, data: { wins: number; time: numbe
   return res.json();
 }
 
-export async function createWinner(data: { id: number; wins: number; time: number }): Promise<Winner> {
+export async function createWinner(data: {
+  id: number;
+  wins: number;
+  time: number;
+}): Promise<Winner> {
   const res = await fetch(`${API_URL}/winners`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

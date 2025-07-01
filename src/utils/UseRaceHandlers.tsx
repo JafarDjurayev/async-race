@@ -4,7 +4,6 @@
 // import { useWinnerStore } from '../app/zustand/useWinnersStore';
 // import { getAllWinners } from '../api/winners';
 
-
 // export function useRaceHandlers() {
 //   const cars = useCarStore(state => state.cars);
 //   const {
@@ -28,22 +27,22 @@
 //             // Start engine
 //             const { velocity, distance } = await startEngine(car.id);
 //             storeStartEngine(car.id, velocity, distance);
-            
+
 //             // Calculate duration and start driving
 //             const duration = distance / velocity / 1000;
 //             const driveSuccess = await driveEngine(car.id);
-            
+
 //             if (!driveSuccess) {
 //               throw new Error('Engine failure');
 //             }
 
 //             // Wait for car to reach finish line
 //             await new Promise(resolve => setTimeout(resolve, duration * 1000));
-            
+
 //             // Stop engine when finished
 //             await stopEngine(car.id);
 //             storeStopEngine(car.id);
-            
+
 //             return {
 //               id: car.id,
 //               time: parseFloat(duration.toFixed(2)),
@@ -72,7 +71,7 @@
 
 //       if (successfulCars.length > 0) {
 //         // Determine winner (lowest time)
-//         const winner = successfulCars.reduce((prev, current) => 
+//         const winner = successfulCars.reduce((prev, current) =>
 //           prev.time < current.time ? prev : current
 //         );
 
@@ -82,22 +81,22 @@
 //         // Update winners table
 //         try {
 //           const { addWinner, fetchWinners } = useWinnerStore.getState();
-          
+
 //           // Add new winner
-//           await addWinner({ 
-//             id: winner.id, 
-//             wins: 1, 
-//             time: winner.time 
+//           await addWinner({
+//             id: winner.id,
+//             wins: 1,
+//             time: winner.time
 //           });
-          
+
 //           // Refresh winners list - fetch ALL winners first
 //           const { winners: allWinners, totalCount } = await getAllWinners();
 //           useWinnerStore.getState().setWinners(allWinners);
-          
+
 //           // Then fetch current page to update pagination
 //           const { currentPage } = useWinnerStore.getState();
 //           await fetchWinners(currentPage, 10);
-          
+
 //         } catch (error) {
 //           console.error('[handleRaceAll] Error updating winners:', error);
 //         }
@@ -146,8 +145,6 @@
 //   return { handleRaceAll, handleResetAll };
 // }
 
-
-
 import { useRaceStore } from '../app/zustand/useRaceStore';
 import { useCarStore } from '../app/zustand/useGarageStore';
 import { startEngine, driveEngine, stopEngine } from '../api/engine';
@@ -162,7 +159,7 @@ export function useRaceHandlers() {
     driveEngine: storeDriveEngine,
     stopEngine: storeStopEngine,
     setRaceStatus,
-    setWinner
+    setWinner,
   } = useRaceStore();
 
   const handleRaceAll = async () => {
@@ -176,22 +173,22 @@ export function useRaceHandlers() {
           try {
             const { velocity, distance } = await startEngine(car.id);
             storeStartEngine(car.id, velocity, distance);
-            
+
             const duration = distance / velocity / 1000;
             const driveSuccess = await driveEngine(car.id);
-            
+
             if (!driveSuccess) throw new Error('Engine failure');
 
             await new Promise(resolve => setTimeout(resolve, duration * 1000));
-            
+
             await stopEngine(car.id);
             storeStopEngine(car.id);
-            
+
             return {
               id: car.id,
               time: parseFloat(duration.toFixed(2)),
               success: true,
-              name: car.name // Include car name
+              name: car.name, // Include car name
             };
           } catch (error) {
             console.error(`Error for car ${car.id}:`, error);
@@ -203,48 +200,47 @@ export function useRaceHandlers() {
             }
             return {
               id: car.id,
-              success: false
+              success: false,
             };
           }
-        })
+        }),
       );
 
       const successfulCars = raceResults
         .filter(result => result.success)
-        .map(result => ({ 
-          id: result.id!, 
+        .map(result => ({
+          id: result.id!,
           time: result.time!,
-          name: result.name!
+          name: result.name!,
         }));
 
       if (successfulCars.length > 0) {
-        const winner = successfulCars.reduce((prev, current) => 
-          prev.time < current.time ? prev : current
+        const winner = successfulCars.reduce((prev, current) =>
+          prev.time < current.time ? prev : current,
         );
 
-        setWinner({ 
-          id: winner.id, 
-          wins: 1, 
+        setWinner({
+          id: winner.id,
+          wins: 1,
           time: winner.time,
-          name: winner.name 
+          name: winner.name,
         });
 
         try {
           const { addWinner, fetchWinners } = useWinnerStore.getState();
-          
-          await addWinner({ 
-            id: winner.id, 
-            wins: 1, 
+
+          await addWinner({
+            id: winner.id,
+            wins: 1,
             time: winner.time,
-            name: winner.name
+            name: winner.name,
           });
-          
+
           const { winners: allWinners, totalCount } = await getAllWinners();
           useWinnerStore.getState().setWinners(allWinners);
-          
+
           const { currentPage } = useWinnerStore.getState();
           await fetchWinners(currentPage, 10);
-          
         } catch (error) {
           console.error('Error updating winners:', error);
         }
@@ -267,7 +263,7 @@ export function useRaceHandlers() {
           } catch (error) {
             console.error(`Stop error for car ${car.id}:`, error);
           }
-        })
+        }),
       );
 
       setRaceStatus('reset');
@@ -279,7 +275,6 @@ export function useRaceHandlers() {
       } catch (error) {
         console.error('Error refreshing winners:', error);
       }
-
     } catch (error) {
       console.error('Reset error:', error);
     }

@@ -19,7 +19,9 @@ export default function WinnerRow({
       <td>{(page - 1) * limit + index + 1}</td>
       <td>{winner.id}</td>
       <td>
-        {car && <div className="car-icon" style={{ backgroundColor: car.color }} />}
+        {car && (
+          <div className="car-icon" style={{ backgroundColor: car.color }} />
+        )}
       </td>
       <td>{car?.name || 'Unknown'}</td>
       <td>{winner.wins}</td>

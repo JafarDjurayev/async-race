@@ -68,7 +68,6 @@ export interface Winner {
 //   addWinner: (data: { id: number; wins: number; time: number }) => Promise<Winner>;
 // }
 
-
 export interface WinnerStore {
   winners: Winner[];
   totalCount: number;
@@ -79,15 +78,22 @@ export interface WinnerStore {
     page: number,
     limit?: number,
     sort?: 'id' | 'wins' | 'time',
-    order?: 'ASC' | 'DESC'
+    order?: 'ASC' | 'DESC',
   ) => Promise<number>;
   fetchAllWinners: (
     sort?: 'id' | 'wins' | 'time',
-    order?: 'ASC' | 'DESC'
+    order?: 'ASC' | 'DESC',
   ) => Promise<Winner[]>;
   fetchWinnerById: (id: number) => Promise<Winner | null>;
-  updateWinnerRecord: (id: number, data: { wins: number; time: number }) => Promise<Winner>;
-  addWinner: (data: { id: number; wins: number; time: number }) => Promise<Winner>;
+  updateWinnerRecord: (
+    id: number,
+    data: { wins: number; time: number },
+  ) => Promise<Winner>;
+  addWinner: (data: {
+    id: number;
+    wins: number;
+    time: number;
+  }) => Promise<Winner>;
   setCurrentPage: (page: number) => void; // Add this
 }
 

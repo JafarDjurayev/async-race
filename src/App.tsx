@@ -1,10 +1,8 @@
-import type { JSX } from 'react/jsx-runtime'
-import AppRouter from './routes/AppRouter'
+import type { JSX } from 'react/jsx-runtime';
+import AppRouter from './routes/AppRouter';
 
 function App(): JSX.Element {
-  return (
-      <AppRouter />
-  )
+  return <AppRouter />;
 }
 
-export default App
+export default App;

@@ -10,7 +10,13 @@ interface RaceTrackProps {
   maxDistance: number;
 }
 
-export default function RaceTrack({ car, trackRef, isMoving,  state, maxDistance,}: RaceTrackProps): JSX.Element {
+export default function RaceTrack({
+  car,
+  trackRef,
+  isMoving,
+  state,
+  maxDistance,
+}: RaceTrackProps): JSX.Element {
   const duration = state?.duration ?? 3;
   const clampedDistance = Math.min(state?.distance ?? 0, maxDistance);
 
@@ -22,10 +28,21 @@ export default function RaceTrack({ car, trackRef, isMoving,  state, maxDistance
           transform: isMoving
             ? `translateX(${clampedDistance}px)`
             : 'translateX(0px)',
-          transition: isMoving ? `transform ${duration}s linear` : 'none', width: '100px', height: '80px', position: 'absolute', left: 0,
+          transition: isMoving ? `transform ${duration}s linear` : 'none',
+          width: '100px',
+          height: '80px',
+          position: 'absolute',
+          left: 0,
         }}
       >
-        <CarIcon style={{  width: '100%',  height: '100%',  fill: car.color,  marginLeft: '30px', }} />
+        <CarIcon
+          style={{
+            width: '100%',
+            height: '100%',
+            fill: car.color,
+            marginLeft: '30px',
+          }}
+        />
       </div>
 
       <h3 style={{ color: car.color, marginTop: '100px' }}>{car.name}</h3>

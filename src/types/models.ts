@@ -1,4 +1,3 @@
-
 export interface Car {
   id: number;
   name: string;
@@ -16,10 +15,16 @@ export interface Winners {
   time: number;
 }
 
+export interface CarState {
+  isDriving: boolean;
+  duration: number;
+  velocity: number;
+  distance: number;
+}
+
 export type GenerateCarsHook = {
   handleGenerateClick: () => Promise<void>;
 };
-
 
 export interface PaginationStore {
   currentPage: number;
@@ -35,12 +40,10 @@ export interface Winner {
   time: number;
 }
 
-
 export interface WinnerStore {
   winners: Winner[];
   setWinners: (winners: Winner[]) => void;
 }
-
 
 export interface WinnersPaginationStore {
   currentPage: number;
@@ -63,8 +66,6 @@ export interface CarStore {
   setCarColorInput: (color: string) => void;
 }
 
-
-
 export interface CarCreateStore {
   cars: Car[];
   carNameInput: string;
@@ -76,8 +77,30 @@ export interface CarCreateStore {
   createCar: () => Promise<void>;
 }
 
-export const brands: string[] = ['Tesla', 'Ford', 'Toyota', 'BMW', 'Audi', 'Chevy', 'Honda', 'Nissan', 'Mazda', 'Mercedes']
-export const models: string[] = ['Model S', 'Mustang', 'Corolla', '3 Series', 'A4', 'Camaro', 'Civic', 'Altima', 'CX-5', 'C-Class'];
+export const brands: string[] = [
+  'Tesla',
+  'Ford',
+  'Toyota',
+  'BMW',
+  'Audi',
+  'Chevy',
+  'Honda',
+  'Nissan',
+  'Mazda',
+  'Mercedes',
+];
+export const models: string[] = [
+  'Model S',
+  'Mustang',
+  'Corolla',
+  '3 Series',
+  'A4',
+  'Camaro',
+  'Civic',
+  'Altima',
+  'CX-5',
+  'C-Class',
+];
 
 export interface PaginationProps {
   currentPage: number;
@@ -106,5 +129,3 @@ export interface CarUpdateStore {
   setSelectedCar: (car: Car) => void;
   clearSelectedCar: () => void;
 }
-
-

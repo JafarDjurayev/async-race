@@ -40,9 +40,55 @@ export interface Winner {
   time: number;
 }
 
+// export interface WinnerStore {
+//   winners: Winner[];
+//   setWinners: (winners: Winner[]) => void;
+// }
+
+// export interface WinnersPaginationStore {
+//   currentPage: number;
+//   totalPages: number;
+//   setCurrentPage: (page: number) => void;
+//   setTotalPages: (total: number) => void;
+// }
+
+// export interface WinnerStore {
+//   winners: Winner[];
+//   loading: boolean;
+//   error: string | null;
+//   setWinners: (winners: Winner[]) => void;
+//   fetchWinners: (
+//     page: number,
+//     limit?: number,
+//     sort?: 'id' | 'wins' | 'time',
+//     order?: 'ASC' | 'DESC'
+//   ) => Promise<number>;
+//   fetchWinnerById: (id: number) => Promise<Winner | null>;
+//   updateWinnerRecord: (id: number, data: { wins: number; time: number }) => Promise<Winner>;
+//   addWinner: (data: { id: number; wins: number; time: number }) => Promise<Winner>;
+// }
+
+
 export interface WinnerStore {
   winners: Winner[];
+  totalCount: number;
+  loading: boolean;
+  error: string | null;
   setWinners: (winners: Winner[]) => void;
+  fetchWinners: (
+    page: number,
+    limit?: number,
+    sort?: 'id' | 'wins' | 'time',
+    order?: 'ASC' | 'DESC'
+  ) => Promise<number>;
+  fetchAllWinners: (
+    sort?: 'id' | 'wins' | 'time',
+    order?: 'ASC' | 'DESC'
+  ) => Promise<Winner[]>;
+  fetchWinnerById: (id: number) => Promise<Winner | null>;
+  updateWinnerRecord: (id: number, data: { wins: number; time: number }) => Promise<Winner>;
+  addWinner: (data: { id: number; wins: number; time: number }) => Promise<Winner>;
+  setCurrentPage: (page: number) => void; // Add this
 }
 
 export interface WinnersPaginationStore {

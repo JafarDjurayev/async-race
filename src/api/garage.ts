@@ -1,6 +1,7 @@
-import { type Car, type CarCreate } from '../types/models';
 
-const BASE_URL: string = 'http://127.0.0.1:3000';
+import { type Car, type CarCreate } from "../types/models";
+
+const BASE_URL:string = 'http://127.0.0.1:3000';
 
 export async function fetchCars(): Promise<Car[]> {
   const response = await fetch(`${BASE_URL}/garage`, {
@@ -9,7 +10,6 @@ export async function fetchCars(): Promise<Car[]> {
       'Cache-Control': 'no-cache',
     },
   });
-  console.log('Raw response:', response); // Add this line
   if (!response.ok) {
     throw new Error('Failed to fetch cars');
   }
@@ -17,6 +17,8 @@ export async function fetchCars(): Promise<Car[]> {
   const cars: Car[] = await response.json();
   return cars;
 }
+
+
 
 export async function CreateCar(car: CarCreate): Promise<Car> {
   const response = await fetch(`${BASE_URL}/garage`, {
@@ -34,6 +36,7 @@ export async function CreateCar(car: CarCreate): Promise<Car> {
   const createdCar: Car = await response.json();
   return createdCar;
 }
+
 
 export async function UpdateCar(car: Car): Promise<Car> {
   const response = await fetch(`${BASE_URL}/garage/${car.id}`, {
@@ -55,6 +58,7 @@ export async function UpdateCar(car: Car): Promise<Car> {
   return updatedCar;
 }
 
+
 export async function DeleteCar(id: number): Promise<void> {
   const response = await fetch(`${BASE_URL}/garage/${id}`, {
     method: 'DELETE',
@@ -65,6 +69,15 @@ export async function DeleteCar(id: number): Promise<void> {
   }
 }
 
+
+
+export async function fetchCarById(id: number): Promise<Car> {
+  const response = await fetch(`${BASE_URL}/garage/${id}`);
+  if (!response.ok) throw new Error(`Failed to fetch car with ID ${id}`);
+  return await response.json();
+}
+
+
 fetchCars()
   .then(cars => {
     console.log('Fetched cars:', cars);
@@ -72,3 +85,4 @@ fetchCars()
   .catch(err => {
     console.error('Error fetching cars:', err);
   });
+

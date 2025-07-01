@@ -6,7 +6,8 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig({
   base: '/async-race/',
   build: {
-    outDir: 'dist'
+    outDir: 'dist',
+    assetsDir: './assets'
   },
   plugins: [react(),svgr()],
   server: {
